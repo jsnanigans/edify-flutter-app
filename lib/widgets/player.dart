@@ -10,14 +10,25 @@ class Player extends StatefulWidget {
 }
 
 class _PlayerState extends State<Player> {
-  String localFilePath;
+  bool isPlaying = false;
+  final assetsAudioPlayer = AssetsAudioPlayer();
 
-  Future playLocal() async {
-
-    AssetsAudioPlayer.newPlayer().open(
+  Future initPlayer() async {
+    assetsAudioPlayer.open(
       Audio("assets/raven.mp3"),
       showNotification: true,
     );
+  }
+
+  Future togglePlay() async {
+    if (isPlaying == false) {
+      await initPlayer();
+    } else {
+      setState(() {
+        isPlaying = true;
+      });
+      assetsAudioPlayer.playOrPause();
+    }
   }
 
   @override
@@ -47,7 +58,7 @@ class _PlayerState extends State<Player> {
                 mainAxisAlignment: MainAxisAlignment.center,
               ),
             ),
-            ActionButton(action: playLocal),
+            ActionButton(action: togglePlay),
           ],
         ));
   }
