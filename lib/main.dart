@@ -1,14 +1,16 @@
-import 'package:edify/routes/library.dart';
-import 'package:edify/widgets/actionButton.dart';
-import 'package:edify/widgets/player.dart';
+import 'package:edify/cubit/player_cubit.dart';
+import 'package:edify/presentation/routes/library.dart';
+import 'package:edify/presentation/widgets/player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+  final PlayerCubit playerCubit = PlayerCubit();
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -19,10 +21,13 @@ class MyApp extends StatelessWidget {
           accentColor: Colors.pinkAccent,
         ),
         home: Scaffold(
-          body: Library(title: 'Flutter Demo Home Page'),
+          body: BlocProvider.value(
+            value: playerCubit,
+            child: Library(title: 'Flutter Demo Home Page'),
+          ),
           bottomNavigationBar: BottomAppBar(
             shape: const CircularNotchedRectangle(),
-            child: Player(),
+            child: BlocProvider.value(value: playerCubit, child: Player()),
           ),
           // floatingActionButton: ActionButton(),
           // floatingActionButtonLocation:

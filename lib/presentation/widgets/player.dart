@@ -1,8 +1,8 @@
-import 'dart:io';
-
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:edify/widgets/actionButton.dart';
+import 'package:edify/cubit/player_cubit.dart';
+import 'package:edify/presentation/widgets/actionButton.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Player extends StatefulWidget {
   @override
@@ -20,15 +20,16 @@ class _PlayerState extends State<Player> {
     );
   }
 
-  Future togglePlay() async {
-    if (isPlaying == false) {
-      await initPlayer();
-    } else {
-      setState(() {
-        isPlaying = true;
-      });
-      assetsAudioPlayer.playOrPause();
-    }
+  Future togglePlay(context) async {
+    BlocProvider.of<PlayerCubit>(context).toggle();
+    // if (isPlaying == false) {
+    //   await initPlayer();
+    // } else {
+    //   setState(() {
+    //     isPlaying = true;
+    //   });
+    //   assetsAudioPlayer.playOrPause();
+    // }
   }
 
   @override
@@ -58,7 +59,7 @@ class _PlayerState extends State<Player> {
                 mainAxisAlignment: MainAxisAlignment.center,
               ),
             ),
-            ActionButton(action: togglePlay),
+            ActionButton(action: () => togglePlay(context)),
           ],
         ));
   }
