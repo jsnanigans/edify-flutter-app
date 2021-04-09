@@ -1,5 +1,5 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:edify/cubit/player_cubit.dart';
+import 'package:edify/cubit/app_player_cubit.dart';
 import 'package:edify/presentation/widgets/actionButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -21,7 +21,7 @@ class _PlayerState extends State<Player> {
   }
 
   Future togglePlay(context) async {
-    BlocProvider.of<PlayerCubit>(context).toggle();
+    BlocProvider.of<AppPlayerCubit>(context).toggle();
     // if (isPlaying == false) {
     //   await initPlayer();
     // } else {
@@ -34,33 +34,38 @@ class _PlayerState extends State<Player> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 80,
-        child: Row(
-          children: [
-            Container(
-                padding: EdgeInsets.all(5),
-                child: Image(
-                    image: AssetImage('assets/crooked_kingdom.jpg'),
-                    height: 70)),
-            Container(
-              padding: EdgeInsets.all(5),
-              child: Column(
-                children: [
-                  Text('Crooked Kingdom', style: TextStyle(fontSize: 20)),
-                  Container(
-                    height: 2,
+    return BlocBuilder<AppPlayerCubit, AppPlayerState>(
+      builder: (context, state) {
+        return Container(
+            height: 80,
+            child: Row(
+              children: [
+                Container(
+                    padding: EdgeInsets.all(5),
+                    child: Image(
+                        image: AssetImage('assets/crooked_kingdom.jpg'),
+                        height: 70)),
+                Container(
+                  padding: EdgeInsets.all(5),
+                  child: Column(
+                    children: [
+                      Text('Crooked Kingdom', style: TextStyle(fontSize: 20)),
+                      Container(
+                        height: 2,
+                      ),
+                      Text('1h 55m left',
+                          style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.white.withOpacity(.8))),
+                    ],
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                   ),
-                  Text('1h 55m left',
-                      style: TextStyle(
-                          fontSize: 14, color: Colors.white.withOpacity(.8))),
-                ],
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-              ),
-            ),
-            ActionButton(action: () => togglePlay(context)),
-          ],
-        ));
+                ),
+                ActionButton(action: () => togglePlay(context)),
+              ],
+            ));
+      },
+    );
   }
 }

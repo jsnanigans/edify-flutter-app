@@ -1,4 +1,4 @@
 class PlayerState {
-  bool isPlaying = false;
+  bool? isPlaying = false;
   PlayerState({this.isPlaying});
 }

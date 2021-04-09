@@ -1,4 +1,4 @@
-import 'package:edify/cubit/player_cubit.dart';
+import 'package:edify/cubit/app_player_cubit.dart';
 import 'package:edify/presentation/routes/library.dart';
 import 'package:edify/presentation/widgets/player.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +9,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  final PlayerCubit playerCubit = PlayerCubit();
+  final AppPlayerCubit appPlayerCubit = AppPlayerCubit();
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +22,12 @@ class MyApp extends StatelessWidget {
         ),
         home: Scaffold(
           body: BlocProvider.value(
-            value: playerCubit,
-            child: Library(title: 'Flutter Demo Home Page'),
+            value: appPlayerCubit,
+            child: Library(),
           ),
           bottomNavigationBar: BottomAppBar(
             shape: const CircularNotchedRectangle(),
-            child: BlocProvider.value(value: playerCubit, child: Player()),
+            child: BlocProvider.value(value: appPlayerCubit, child: Player()),
           ),
           // floatingActionButton: ActionButton(),
           // floatingActionButtonLocation:

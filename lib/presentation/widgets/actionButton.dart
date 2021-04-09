@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ActionButton extends StatelessWidget {
-  ActionButton({Key key, this.action}) : super(key: key);
-  final VoidCallback action;
+  ActionButton({Key? key, this.action}) : super(key: key);
+  final VoidCallback? action;
 
 
   @override
