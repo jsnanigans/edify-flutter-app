@@ -12,19 +12,30 @@ void main() {
 class MyApp extends StatelessWidget {
   final AppPlayerCubit appPlayerCubit = AppPlayerCubit();
 
+  final ThemeData themeDark = ThemeData(
+    brightness: Brightness.dark,
+    primaryColor: Colors.redAccent,
+    accentColor: Colors.pinkAccent,
+    textTheme: GoogleFonts.abelTextTheme(
+      ThemeData.dark().textTheme,
+    ),
+  );
+
+  final ThemeData themeLight = ThemeData(
+    brightness: Brightness.light,
+    primaryColor: Colors.redAccent,
+    accentColor: Colors.pinkAccent,
+    textTheme: GoogleFonts.abelTextTheme(
+      ThemeData.light().textTheme,
+    ),
+  );
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return MaterialApp(
         title: 'Flutter Demo',
-        theme: ThemeData(
-          brightness: Brightness.dark,
-          primaryColor: Colors.redAccent,
-          accentColor: Colors.pinkAccent,
-          textTheme: GoogleFonts.abelTextTheme(
-            ThemeData.dark().textTheme,
-          ),
-        ),
+        theme: themeLight,
         home: Scaffold(
           body: BlocProvider.value(
             value: appPlayerCubit,
